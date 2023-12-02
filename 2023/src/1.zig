@@ -1,12 +1,14 @@
 const std = @import("std");
 
+const input_file = "../input/1.txt";
+
 pub fn main() !void {
     try part_1();
     try part_2();
 }
 
 fn part_1() !void {
-    const file = try std.fs.cwd().openFile("../input/1.txt", .{});
+    const file = try std.fs.cwd().openFile(input_file, .{});
     defer file.close();
 
     var io_reader = std.io.bufferedReader(file.reader());
@@ -46,7 +48,7 @@ fn part_1() !void {
 }
 
 fn part_2() !void {
-    const file = try std.fs.cwd().openFile("../input/1.txt", .{});
+    const file = try std.fs.cwd().openFile(input_file, .{});
     defer file.close();
 
     var io_reader = std.io.bufferedReader(file.reader());
