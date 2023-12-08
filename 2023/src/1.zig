@@ -16,7 +16,7 @@ fn part_1() !void {
 
     var accumulator: usize = 0;
 
-    const ansi_base: comptime_int = 48;
+    const ascii_base: comptime_int = 48;
 
     var l: [1024]u8 = undefined;
     while (try stream.readUntilDelimiterOrEof(&l, '\n')) |line| {
@@ -26,7 +26,7 @@ fn part_1() !void {
         var i: usize = 0;
         while (i < line.len) : (i += 1) {
             const c = &line[i];
-            if (c.* >= ansi_base and c.* <= ansi_base + 9) {
+            if (c.* >= ascii_base and c.* <= ascii_base + 9) {
                 first = c;
                 break;
             }
@@ -35,13 +35,13 @@ fn part_1() !void {
         i = line.len - 1;
         while (i >= 0) : (i -= 1) {
             const c = &line[i];
-            if (c.* >= ansi_base and c.* <= ansi_base + 9) {
+            if (c.* >= ascii_base and c.* <= ascii_base + 9) {
                 second = c;
                 break;
             }
         }
 
-        accumulator += (first.* - ansi_base) * 10 + (second.* - ansi_base);
+        accumulator += (first.* - ascii_base) * 10 + (second.* - ascii_base);
     }
 
     std.log.info("result 1 -> {d}", .{accumulator});
