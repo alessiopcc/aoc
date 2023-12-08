@@ -7,6 +7,8 @@ pub fn main() !void {
     try part_2();
 }
 
+const ascii_n_base: comptime_int = 48;
+
 fn part_1() !void {
     const file = try std.fs.cwd().openFile(input_file, .{});
     defer file.close();
@@ -16,8 +18,6 @@ fn part_1() !void {
 
     var accumulator: usize = 0;
 
-    const ascii_base: comptime_int = 48;
-
     var l: [1024]u8 = undefined;
     while (try stream.readUntilDelimiterOrEof(&l, '\n')) |line| {
         var first: *u8 = undefined;
@@ -26,7 +26,7 @@ fn part_1() !void {
         var i: usize = 0;
         while (i < line.len) : (i += 1) {
             const c = &line[i];
-            if (c.* >= ascii_base and c.* <= ascii_base + 9) {
+            if (c.* >= ascii_n_base and c.* <= ascii_n_base + 9) {
                 first = c;
                 break;
             }
@@ -35,13 +35,13 @@ fn part_1() !void {
         i = line.len - 1;
         while (i >= 0) : (i -= 1) {
             const c = &line[i];
-            if (c.* >= ascii_base and c.* <= ascii_base + 9) {
+            if (c.* >= ascii_n_base and c.* <= ascii_n_base + 9) {
                 second = c;
                 break;
             }
         }
 
-        accumulator += (first.* - ascii_base) * 10 + (second.* - ascii_base);
+        accumulator += (first.* - ascii_n_base) * 10 + (second.* - ascii_n_base);
     }
 
     std.log.info("result 1 -> {d}", .{accumulator});
